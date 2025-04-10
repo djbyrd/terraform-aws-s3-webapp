@@ -45,6 +45,13 @@ resource "aws_s3_bucket_acl" "bucket" {
   acl = "public-read"
 }
 
+resource "aws_s3_bucket_ownership_controls" "bucket" {
+  bucket = aws_s3_bucket.bucket.id
+  rule {
+    object_ownership = "ObjectWriter"
+  }
+}
+
 resource "aws_s3_bucket_policy" "policy" {
   bucket = aws_s3_bucket.bucket.id
   policy = <<EOF
